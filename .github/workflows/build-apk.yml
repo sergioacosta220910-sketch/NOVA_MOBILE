@@ -1,40 +1,46 @@
-name: Compilar APK N.O.V.A.
+name: Compilar N.O.V.A. Android
 
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "master" ]
-
-permissions:
-  contents: read
+    paths:
+      - 'NOVA_ANDROID_PARA_GITHUB.zip'
+      - '.github/workflows/android.yml'
 
 jobs:
   build:
-    name: Generar APK
     runs-on: ubuntu-latest
 
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Java 17
+      - name: Preparar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Configurar Gradle
+      - name: Instalar Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
+      - name: Extraer proyecto Android desde el ZIP
+        run: |
+          test -f NOVA_ANDROID_PARA_GITHUB.zip
+          unzip -o NOVA_ANDROID_PARA_GITHUB.zip -d android-project
+          test -f android-project/build.gradle.kts
+          test -f android-project/settings.gradle.kts
+          test -f android-project/app/build.gradle.kts
+
       - name: Compilar APK
+        working-directory: android-project
         run: gradle --no-daemon assembleDebug
 
-      - name: Guardar APK
+      - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
           name: NOVA-Android-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: android-project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-          retention-days: 14
