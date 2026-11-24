@@ -1,0 +1,25 @@
+COMPILAR N.O.V.A. APK DIRECTAMENTE EN GITHUB
+
+1. Entra a GitHub y crea un repositorio nuevo (por ejemplo: NOVA-Android).
+2. Descomprime NOVA_Android_Nativa_GITHUB.zip en tu PC.
+3. Sube TODO el contenido de la carpeta NOVA_Android_Nativa al nivel principal
+   del repositorio. Deben quedar visibles, entre otros:
+   - app/
+   - .github/workflows/build-apk.yml
+   - build.gradle.kts
+   - settings.gradle.kts
+   No subas la carpeta contenedora NOVA_Android_Nativa como una carpeta adicional.
+4. Confirma los cambios con Commit changes.
+5. Abre la pestaña Actions del repositorio.
+6. Selecciona "Compilar APK N.O.V.A." y pulsa Run workflow.
+   También se ejecuta automáticamente al subir cambios a main o master.
+7. Espera a que termine en verde. Entra en la ejecución completada.
+8. En Artifacts, descarga "NOVA-Android-APK".
+9. Descomprime ese archivo: dentro estará app-debug.apk.
+
+NO necesitas Android Studio ni configurar secretos para compilar.
+La primera compilación puede tardar varios minutos porque GitHub descarga Gradle
+ y las dependencias Android.
+
+NOTA: esta acción genera un APK debug para instalar y probar. No genera un APK
+firmado de publicación en Google Play.

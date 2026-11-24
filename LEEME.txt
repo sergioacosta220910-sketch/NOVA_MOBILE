@@ -1,0 +1,38 @@
+N.O.V.A. ANDROID NATIVA — PROYECTO ANDROID STUDIO
+
+Esto NO es un WebView. La interfaz está construida en Kotlin + Jetpack Compose.
+La aplicación se conecta al backend FastAPI que ya tienes ejecutándose; no incluye
+Python, Groq, memoria ni una segunda base de datos.
+
+COMPILAR
+1. Descomprime NOVA_Android_Nativa.zip.
+2. Abre la carpeta NOVA_Android_Nativa desde Android Studio (Open).
+3. Espera a que termine Gradle Sync.
+4. Menú Build > Build Bundle(s) / APK(s) > Build APK(s).
+5. El APK queda en app/build/outputs/apk/debug/app-debug.apk.
+
+CONECTAR
+- Inicia tu servidor N.O.V.A. en el PC.
+- El teléfono y el PC deben estar en la misma red Wi-Fi para usar una IP local.
+- En el login escribe la dirección del servidor, por ejemplo:
+  http://192.168.1.25:8000
+  (reemplaza la IP por la IP LAN real del PC).
+- Escribe la misma contraseña configurada en AC_WEB_PASSWORD.
+- Para conectarte desde fuera de casa, el servidor debe exponerse de forma segura
+  mediante HTTPS, VPN o túnel. No publiques el puerto directamente sin protección.
+
+FUNCIONES NATIVAS INCLUIDAS
+- Login usando POST /api/login y cookie ac_session.
+- Chat conectado a POST /api/chat.
+- Historial de conversación.
+- Adjuntar archivos al chat mediante /api/files/temp/upload.
+- Calendario: listar, próximos, crear y eliminar eventos.
+- Explorador básico de Storage y creación de carpetas.
+- Cierre de sesión.
+
+IMPORTANTE
+- La app utiliza los endpoints existentes del main.py entregado.
+- La autenticación usa la cookie de sesión en memoria de preferencias de la app.
+- El backend entregado configura PORT=8000 y HOST=0.0.0.0.
+- El proyecto requiere Android Studio con JDK 17 y conexión a internet durante
+  la primera sincronización de dependencias.
